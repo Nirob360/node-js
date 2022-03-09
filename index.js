@@ -9,28 +9,29 @@
 
 // dependencies
 const http = require('http');
+const { handleReqRes } = require('./helpers/handleRqRes');
+const enviroment = require('./helpers/env');
+const data = require('./lib/data');
 
 // app object -module scaffolding
 const app = {};
 
-// configuration
-app.config = {
-    port: 3000,
-};
+// testing file syestem
+// todo deler after test
+data.delete('test', 'newFile', (err) => {
+    console.log(err);
+});
 
 // Create server
 app.createServer = () => {
     const server = http.createServer(app.handleReqRes);
-    server.listen(app.config.port, () => {
-        console.log(`lisitening to port ${app.config.port}`);
+    server.listen(enviroment.port, () => {
+        console.log(`lisitening to port ${enviroment.port}`);
     });
 };
 
 // handle Request Response
-app.handleReqRes = (req, res) => {
-    // Response handle
-    res.end('Hello world, how are you?');
-};
+app.handleReqRes = handleReqRes;
 
 // start the server
 app.createServer();
